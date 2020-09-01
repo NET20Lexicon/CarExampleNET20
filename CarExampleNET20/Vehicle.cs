@@ -6,7 +6,7 @@ namespace CarExampleNET20
 {
     public interface IDrive
     {
-        public string Drive(double distance);
+        string Drive(double distance);
 
     }
 
@@ -83,6 +83,9 @@ namespace CarExampleNET20
         public FuelCar(string regNo, double fuelCapacity) : base(regNo, fuelCapacity)
         {
         }
+
+        public string DoSound() => "Tut tut";
+
 
         public override string Drive(double distance)
         {
