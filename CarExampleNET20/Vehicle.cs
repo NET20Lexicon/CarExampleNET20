@@ -4,7 +4,37 @@ using System.Text;
 
 namespace CarExampleNET20
 {
-    class Vehicle
+    public interface IDrive
+    {
+        public string Drive(double distance);
+
+    }
+
+    abstract class AbstractVehicle : IDrive
+    {
+        public virtual string Drive(double distance) =>  $"Vehicle wants to drive for {distance}";
+        public abstract string Turn();
+
+    }
+
+    class Bicycle : AbstractVehicle
+    {
+        public string FrameNumber { get; }
+        public Bicycle(string frameNumber)
+        {
+            FrameNumber = frameNumber;
+        }
+
+        public override string Turn() => "Bicycle turns";
+
+        public override string Drive(double distance)
+        {
+            return "Bicycle starts pedaling";
+        }
+
+    }
+
+    class Vehicle : AbstractVehicle
     {
         public string RegNo { get; set; }
 
@@ -13,7 +43,10 @@ namespace CarExampleNET20
             RegNo = regNo;
         }
 
-        public virtual string Drive(double distance) => distance > 0 ? $"Vehicle wants to drive for {distance}" : "Error";
+        public override string Turn()
+        {
+            return "Vehicle turns";
+        }
     }
 
     class FuelVehicle : Vehicle
@@ -53,7 +86,22 @@ namespace CarExampleNET20
 
         public override string Drive(double distance)
         {
-            return base.Drive(distance);
+            var result = new StringBuilder();
+            result.AppendLine(base.Drive(distance));
+
+            if(distance < 0)
+            {
+                distance = 0;
+                result.AppendLine($"Negative distance is assumed to be 0");
+            }
+
+            //FuelLevel = FuelLevel - (distance * fuelConsumption);
+            FuelLevel -= distance * fuelConsumption;
+
+            result.AppendLine($"Regno: {RegNo} drove {distance} km");
+
+            return result.ToString();
+
         }
     }
 }
