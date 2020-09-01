@@ -26,7 +26,9 @@ namespace CarExampleNET20
             {
                 Console.WriteLine(vehicle.Drive(20));
 
+                //Return null when fail
                 FuelCar fuelCar1 = vehicle as FuelCar;
+                //?. nullcheck
                 Console.WriteLine(fuelCar1?.DoSound());
 
                 if (fuelCar1 != null)
@@ -37,10 +39,12 @@ namespace CarExampleNET20
 
                 if (vehicle is FuelCar)
                 {
+                    //Unsafe cast exeption when fail
                     FuelCar fuelCar = (FuelCar)vehicle;
                     Console.WriteLine(fuelCar.DoSound());
                 }
 
+                //If vehicle is a FuelCar cast to car
                 if(vehicle is FuelCar car)
                 {
                     Console.WriteLine(car.DoSound());

@@ -4,15 +4,22 @@ using System.Text;
 
 namespace CarExampleNET20
 {
+    //Interface ingen implementation
+    //Alltid publikt
     public interface IDrive
     {
         string Drive(double distance);
 
     }
 
+    //Abstrakt klass
+    //Kan innehålla vanliga metoder med implementation
+    //Samt privata metoder fält och properties
     abstract class AbstractVehicle : IDrive
     {
+        //Virtual gör att ärvda klasser kan skriva egna implementationer av metoden
         public virtual string Drive(double distance) =>  $"Vehicle wants to drive for {distance}";
+        //Abstract metod måste implementeras i ärvda klasser
         public abstract string Turn();
 
     }
@@ -27,6 +34,7 @@ namespace CarExampleNET20
 
         public override string Turn() => "Bicycle turns";
 
+        //Overide av virtual method
         public override string Drive(double distance)
         {
             return "Bicycle starts pedaling";
@@ -80,6 +88,8 @@ namespace CarExampleNET20
         public double maxDistance => FuelLevel / fuelConsumption;
 
         public double Milage { get; private set; }
+
+        //base anrop till basklassens konstruktor i det här fallet
         public FuelCar(string regNo, double fuelCapacity) : base(regNo, fuelCapacity)
         {
         }
@@ -90,6 +100,7 @@ namespace CarExampleNET20
         public override string Drive(double distance)
         {
             var result = new StringBuilder();
+            //Anropar basklassens Drive() metod
             result.AppendLine(base.Drive(distance));
 
             if(distance < 0)
